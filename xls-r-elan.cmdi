@@ -44,10 +44,12 @@
 
             <input level="basic" type="tier" optional="true"
                 info="Input tier">input_tier</input>
+            
 
             <textparam level="basic" convoc="Transcribe Retone" 
                 default="Transcribe"
                 info="Transcribe from scratch or retone existing text?">mode</textparam>
+            <textparam level="basic" info="Path to the model directory (paste full path)">model_path</textparam>
 
             <input level="basic" type="auxiliary" optional="true"
                 mimetypes="text/*"

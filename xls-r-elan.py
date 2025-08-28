@@ -52,7 +52,6 @@
 #   word_beam_search_ext = Extension('word_beam_search', sources=src, \
 #       include_dirs=inc, language='c++', extra_compile_args=["-std=c++11"])
 #                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
 import atexit
 import codecs
 import os
@@ -70,10 +69,8 @@ import word_beam_search
 
 import retone_srs
 
-asr_model_dir = "/Users/chris/Desktop/TLL/Code/xls-r-elan/wav2vec2-xls-r-300-srs-test1/checkpoint-30400"
 tone_model_dir = "/Users/chris/Desktop/TLL/Code/xls-r-elan/wav2vec2-xls-r-300-srs-tones/checkpoint-30400"
 
-model_dir = asr_model_dir
 
 tmp_audio = tempfile.NamedTemporaryFile(suffix = '.wav', delete = False)
 tmp_audio.close()
@@ -108,6 +105,7 @@ if not params.get('output_tier'):
     print("ERROR: no output tier specified!", flush = True)
     sys.exit(-1)
 
+
 # With those parameters in hand, grab the 'input_tier' parameter, open that
 # XML document, and read in all of the annotation start times, end times,
 # and values.
@@ -126,7 +124,10 @@ with open(params['input_tier'], 'r', encoding = 'utf-8') as input_tier:
 # Use the model that corresponds to the function that the user selected in the
 # recognizer ("Transcribe" or "Retone").
 if params['mode'] == 'Transcribe':
-    model_dir = asr_model_dir
+    model_dir = params.get('model_path')
+    if not model_dir or not os.path.isdir(model_dir):
+    	print(f"ERROR: Model directory '{model_dir}' does not exist or is not a directory!", flush=True)
+    	sys.exit(-1)
 else:
     # When retoning text, we can skip any annotations that don't contain any
     # text other than whitespace.
