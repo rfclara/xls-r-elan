@@ -14,7 +14,7 @@
 # ** Edit the following line to point to the directory in which 'ffmpeg' is
 # ** found on this computer.
 # **
-export FFMPEG_DIR="/Users/chris/Unix"
+export FFMPEG_DIR="/usr/bin/"
 
 export LC_ALL="en_US.UTF-8"
 export PYTHONIOENCODING="utf-8"
@@ -22,4 +22,4 @@ export PATH="$PATH:$FFMPEG_DIR"
 
 # Activate the virtual environment, then execute the main script.
 source ./venv-xls-r-elan/bin/activate
-exec python3 ./xls-r-elan.py
+exec python3 ./xls-r-elan.py > ./asr_wrapper_debug.log 2>&1
